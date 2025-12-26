@@ -6,4 +6,5 @@ def about(request):
     return HttpResponse("This is about us")
 def contact(request):
     return HttpResponse("Contact Employee")
-
+def login_view(request):
+    return render(request,"login.html")
