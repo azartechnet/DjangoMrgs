@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .forms import EmployeeForm
 from django.http import HttpResponse
+
 def home(request):
     return render(request,"home.html")
 def about(request):
@@ -15,3 +17,15 @@ def login_view(request):
        else:
            return render(request,"login.html",{"error":"Invalid"})
    return render(request,"login.html")
+
+def add_employee(request):
+    form = EmployeeForm()   # ✅ Always initialize form
+
+    if request.method == "POST":
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("employee")  # ✅ correct name
+
+    return render(request, "employee.html", {"form": form})
+
